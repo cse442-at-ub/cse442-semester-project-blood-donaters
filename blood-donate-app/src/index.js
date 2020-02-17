@@ -5,4 +5,4 @@ import Counter from './components/counter'
 import Login from './components/login'
 
 
-ReactDOM.render(<Login />, document.getElementById('main-container'));
+ReactDOM.render(<Login/>, document.getElementById('main-container'));
