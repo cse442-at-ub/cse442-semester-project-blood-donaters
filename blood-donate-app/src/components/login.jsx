@@ -5,7 +5,7 @@ class Login extends Component {
     return (
       <React.Fragment>
         <div>
-          <div class="d-lg-flex justify-content-center">
+          <div class="d-flex justify-content-center">
             <div class="login-form">
               <form>
                 <div class="form-group">
@@ -14,8 +14,7 @@ class Login extends Component {
                 <div class="form-group">
                   <input type="password" class="form-control" placeholder="Password"></input>
                 </div>
-                <button type="submit" class="btn btn-black">Login</button>
-                <button type="submit" class="btn btn-secondary">Register</button>
+                <button type="submit" class="btn btn-primary">Login</button>
               </form>
             </div>
           </div>
