@@ -5,7 +5,7 @@ import dracula_avatar from "../dracula.jpg";
 import Avatar from "@material-ui/core/Avatar";
 
 //Stateless Functional Component
-const NavBar = ({ totalCounters }) => {
+const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="navbar-collapse collapse justify-content-between align-items-center">
