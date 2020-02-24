@@ -11,24 +11,34 @@ const NavBar = () => {
       <div className="navbar-collapse collapse justify-content-between align-items-center">
         <ul className="navbar-nav text-md-center text-left">
           <li className="nav-item">
-            <a className="navbar-brand" href="#">
-              Blood Bank
+            <a className="navbar-brand" href="/">
+              Blood Donation App
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              Database
+            <a className="nav-link" href="/login">
+              Login
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              About
+            <a className="nav-link" href="/signup">
+              Sign Up
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/donors-list">
+              Donor's List
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/profile">
+              Profile
             </a>
           </li>
         </ul>
         <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/profile">
               Count Dracula
             </a>
           </li>
