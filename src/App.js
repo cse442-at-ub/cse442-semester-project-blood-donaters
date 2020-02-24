@@ -1,28 +1,19 @@
-<<<<<<< HEAD
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Login from './components/login';
-import FormPage from './components/formpage';
 
-function App() {
-  return (
-    <FormPage/>
-=======
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import Login from "./components/login";
+import Login from "./components/login.jsx";
 import NavBar from "./components/navbar";
 import "bootstrap/dist/css/bootstrap.css";
+import FormPage from './components/formpage';
+import DonorList from './components/donors-list';
+import HomePage from './components/homepage';
+
 
 function App() {
   return (
     <React.Fragment>
-      <NavBar />
-      <Login />
+      <HomePage />
     </React.Fragment>
->>>>>>> develop
   );
 }
 

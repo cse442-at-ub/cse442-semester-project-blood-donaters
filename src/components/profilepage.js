@@ -43,7 +43,7 @@ return (
     <Typography>
     <Container className={styles.container}>
         <Card className={styles.card}>
-            <img alt='No Image Available.' src={require("./test.jpg")} />
+            <img alt='No Image Available.' src={require("..assets/profilepictureplaceholder.jpg")} />
             <Typography variant="h4">Philip Moraski</Typography>
             <Button variant="contained">
                 Edit Info

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./navbar.css";
-import dracula_avatar from "../dracula.jpg";
+import dracula_avatar from "../assets/dracula.jpg";
 import Avatar from "@material-ui/core/Avatar";
 
 //Stateless Functional Component
