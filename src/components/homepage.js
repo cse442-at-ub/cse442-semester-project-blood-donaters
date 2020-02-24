@@ -44,8 +44,8 @@ function Homepage(props) {
   <MuiThemeProvider>
   <Grid container justify="flex-end" direction="row" spacing={3}>
   
-    <Button variant="contained" color="secondary">Blood Donors List</Button><br/>
-    <Button variant="contained" color="secondary">Login</Button>
+    <Button variant="contained" color="secondary" href="/donors-list">Donor's List</Button><br/>
+    <Button variant="contained" color="secondary" href="/login">Login</Button>
   </Grid>
   </MuiThemeProvider>
   </Toolbar>
