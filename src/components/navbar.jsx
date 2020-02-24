@@ -11,27 +11,27 @@ const NavBar = () => {
       <div className="navbar-collapse collapse justify-content-between align-items-center">
         <ul className="navbar-nav text-md-center text-left">
           <li className="nav-item">
-            <a className="navbar-brand" href="/">
+            <a className="navbar-brand" href="./">
               Blood Donation App
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/login">
+            <a className="nav-link" href="./login">
               Login
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/signup">
+            <a className="nav-link" href="./signup">
               Sign Up
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/donors-list">
+            <a className="nav-link" href="./donors-list">
               Donor's List
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/profile">
+            <a className="nav-link" href="./profile">
               Profile
             </a>
           </li>

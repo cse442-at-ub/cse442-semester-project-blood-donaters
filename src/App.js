@@ -17,31 +17,29 @@ import {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/CSE442-542/2020-spring/cse-442m">
     <div>
       {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path="/login">
-        <NavBar/>
+        <Route exact path="/login">
+          <NavBar/>
           <Login />
         </Route>
-        <Route path="/signup">
-        <NavBar/>
+        <Route exact path="/signup">
+          <NavBar/>
           <SignUp />
         </Route>
-        <Route path="/donors-list">
-        <NavBar/>
+        <Route exact path="/donors-list">
+          <NavBar/>
           <DonorList />
         </Route>
-        <Route path="/profile">
+        <Route exact path="/profile">
           <NavBar/>
           <ProfilePage />
         </Route>
-        <Route path="/">
-                  <HomePage/>
-          </Route>
-      </Switch>
+        <Route exact path="/">
+          <HomePage/>
+        </Route>
     </div>
   </Router>
 );

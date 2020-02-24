@@ -40,12 +40,12 @@ function Homepage(props) {
   <div>
   <AppBar position="static" className={classes.appbar}>
   <Toolbar>
-  <a href="http://localhost:3000/"><img src={blooddonationlogo} alt="Blood Donation App" height= '100' width='100' style={{marginRight:50}} /></a>
+  <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442m/"><img src={blooddonationlogo} alt="Blood Donation App" height= '100' width='100' style={{marginRight:50}} /></a>
   <MuiThemeProvider>
   <Grid container justify="flex-end" direction="row" spacing={3}>
   
-    <Button variant="contained" color="secondary" href="/donors-list">Donor's List</Button><br/>
-    <Button variant="contained" color="secondary" href="/login">Login</Button>
+    <Button variant="contained" color="secondary" href="./donors-list">Donor's List</Button><br/>
+    <Button variant="contained" color="secondary" href="./login">Login</Button>
   </Grid>
   </MuiThemeProvider>
   </Toolbar>
