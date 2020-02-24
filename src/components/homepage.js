@@ -7,7 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Layout from './layout';
 import Grid from '@material-ui/core/Grid';
-import blooddonationlogo from '../assets/blooddonationlogo.png'
+import blooddonationlogo from '../assets/blooddonationlogo.png';
+import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -44,8 +45,8 @@ function Homepage(props) {
   <MuiThemeProvider>
   <Grid container justify="flex-end" direction="row" spacing={3}>
   
-    <Button variant="contained" color="secondary" href="./donors-list">Donor's List</Button><br/>
-    <Button variant="contained" color="secondary" href="./login">Login</Button>
+    <Button variant="contained" color="secondary"><Link to="/donors-list">Donor's List</Link></Button><br/>
+    <Button variant="contained" color="secondary"><Link to="/login">Login</Link></Button>
   </Grid>
   </MuiThemeProvider>
   </Toolbar>

@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./navbar.css";
 import dracula_avatar from "../assets/dracula.jpg";
 import Avatar from "@material-ui/core/Avatar";
+import { Link } from 'react-router-dom';
 
 //Stateless Functional Component
 const NavBar = () => {
@@ -16,31 +17,23 @@ const NavBar = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="./login">
-              Login
-            </a>
+            <Link className="nav-link" to="login">Login</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="./signup">
-              Sign Up
-            </a>
+            <Link className="nav-link" to="/signup">Sign Up</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="./donors-list">
-              Donor's List
-            </a>
+            <Link className="nav-link" to="/donors-list">Donor's List</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="./profile">
-              Profile
-            </a>
+            <Link className="nav-link" to="/profile">Profile</Link>
           </li>
         </ul>
         <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
           <li className="nav-item">
-            <a className="nav-link" href="/profile">
+            <Link className="nav-link" to="/profile">
               Count Dracula
-            </a>
+            </Link>
           </li>
           <li>
             <Avatar className="m-2" alt="Count Dracula" src={dracula_avatar} />
