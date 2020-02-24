@@ -43,7 +43,8 @@ return (
     <Typography>
     <Container className={styles.container}>
         <Card className={styles.card}>
-            <Typography variant="h4">Philip Moraski</Typography>
+            <img alt='No Image Available.' src={require("../assets/dracula.jpg")} />
+            <Typography variant="h4">Count Dracula</Typography>
             <Button variant="contained">
                 Edit Info
              </Button>
