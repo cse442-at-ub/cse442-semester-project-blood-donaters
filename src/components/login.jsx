@@ -9,8 +9,24 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: ""
+    };
+  }
+
   render() {
     return this.loginForm();
+  }
+
+  validateForm = () => {
+    return this.state.username.length > 0 && this.state.password.length > 0;
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
   }
 
   loginForm() {
@@ -18,7 +34,7 @@ class Login extends Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={this.paper}>
-          <form className={this.form} noValidate>
+          <form className={this.form} onSubmit={this.handleSubmit} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -29,6 +45,7 @@ class Login extends Component {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={e => this.setState({username: e.target.value})}
             />
             <TextField
               variant="outlined"
@@ -40,6 +57,7 @@ class Login extends Component {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={e => this.setState({password: e.target.value})}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -52,15 +70,11 @@ class Login extends Component {
               color="primary"
               className={this.submit}
               href = "/profile"
+              disabled={!this.validateForm()}
             >
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -72,38 +86,5 @@ class Login extends Component {
       </Container>
     );
   }
-
-  loginFormInBootstrap() {
-    return (
-      <React.Fragment>
-        <div>
-          <div class="d-flex justify-content-center">
-            <div class="login-form">
-              <form>
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="User Name"
-                  ></input>
-                </div>
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    placeholder="Password"
-                  ></input>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                  Login
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  }
 }
-
 export default Login;
