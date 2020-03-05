@@ -15,6 +15,7 @@ class Login extends Component {
       username: "",
       password: ""
     };
+    console.log(props);
   }
 
   render() {
@@ -27,10 +28,15 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.userHasAuthenticated(true);
   }
 
   loginForm() {
-    return (
+    if (this.props.isAuthenticated) {
+      return <p>{"Signed in"}</p>;
+    }
+    else {
+      return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={this.paper}>
@@ -69,7 +75,6 @@ class Login extends Component {
               variant="contained"
               color="primary"
               className={this.submit}
-              href = "/profile"
               disabled={!this.validateForm()}
             >
               Sign In
@@ -77,14 +82,14 @@ class Login extends Component {
             <Grid container>
               <Grid item>
                 <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
           </form>
         </div>
       </Container>
-    );
+      )}
   }
 }
 export default Login;
