@@ -9,56 +9,15 @@ import Layout from './layout';
 import Grid from '@material-ui/core/Grid';
 import blooddonationlogo from '../assets/blooddonationlogo.png';
 import { Link } from 'react-router-dom';
+import NavBar from "./navbar";
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  icon: {
-   // margin: theme.spacing.unit * 2,
-  },
-  appbar:{
-    position:'relative',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  }
-
-
-};
-
-function Homepage(props) {
-  const { classes } = props;
+function Homepage() {
   return (
   <div>
-  <AppBar position="static" className={classes.appbar}>
-  <Toolbar>
-  <a href="https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442m/"><img src={blooddonationlogo} alt="Blood Donation App" height= '100' width='100' style={{marginRight:50}} /></a>
-  <MuiThemeProvider>
-  <Grid container justify="flex-end" direction="row" spacing={3}>
-  
-    <Button variant="contained" color="secondary"><Link to="/donors-list">Donor's List</Link></Button><br/>
-    <Button variant="contained" color="secondary"><Link to="/login">Login</Link></Button>
-  </Grid>
-  </MuiThemeProvider>
-  </Toolbar>
-  </AppBar>
-
+  <NavBar/>
   <Layout/>
   </div>
   );
  }
 
-Homepage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Homepage);
+export default Homepage;
