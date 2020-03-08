@@ -9,7 +9,7 @@ import HomePage from './components/homepage';
 import SignUp from './components/formpage';
 import ProfilePage from './components/profilepage';
 import {
-  BrowserRouter as Router,
+  HashRouter as HashRouter,
   Switch,
   Route,
   Link
@@ -17,8 +17,8 @@ import {
 
 function App() {
   return (
-    <Router basename="/CSE442-542/2020-spring/cse-442m">
-    <div>
+    <HashRouter>
+    <Switch>
       {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
         <Route exact path="/login">
@@ -40,8 +40,8 @@ function App() {
         <Route exact path="/">
           <HomePage/>
         </Route>
-    </div>
-  </Router>
+  </Switch>
+  </HashRouter>
 );
 }
 
