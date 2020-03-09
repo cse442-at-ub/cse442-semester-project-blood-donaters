@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+
+
 const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -35,7 +37,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
 const classes = useStyles();
-
 return (
 <Container component="main" maxWidth="xs">
     <CssBaseline />
@@ -43,10 +44,10 @@ return (
         <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5"> 
             Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -127,7 +128,7 @@ return (
             fullWidth
             variant="contained"
             color="primary"
-            href ="/profile"
+            
             className={classes.submit}
             >
             Sign Up
