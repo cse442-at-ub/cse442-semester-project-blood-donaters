@@ -2,7 +2,7 @@
   "name": "blood-donate-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442m/",
+  "homepage": "https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442m/",
   "dependencies": {
     "@material-ui/core": "^4.9.4",
     "@material-ui/icons": "^4.9.1",
