@@ -2,7 +2,6 @@
   "name": "blood-donate-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www-student.cse.buffalo.edu/CSE442-542/2020-spring/cse-442m/",
   "dependencies": {
     "@material-ui/core": "^4.9.4",
     "@material-ui/icons": "^4.9.1",
@@ -10,6 +9,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "material-ui": "^0.20.2",
     "mysql": "^2.18.1",
     "node": "^13.9.0",
@@ -20,7 +20,8 @@
     "react-scripts": "^3.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts build && node server.js",
+    "reactStart": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

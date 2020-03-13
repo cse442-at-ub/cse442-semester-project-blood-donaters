@@ -7,7 +7,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-const mysql = require('mysql');
 
 class Login extends Component {
   constructor(props) {
@@ -18,28 +17,6 @@ class Login extends Component {
     };
   }
 
-  sqlQuery(query) {
-    let queriedRows;
-    
-    const connection = mysql.createConnection({
-      host: 'tethys',
-      user: 'ptmorask',
-      password: '50237054',
-      database: 'cse442_542_2020_spring_teamm_db'
-    });
-    connection.connect((err) => {
-      if (err) throw err;
-      console.log('Connected!');
-    });
-    connection.query(query, (err,rows) => {
-      if(err) throw err;
-    
-      queriedRows = rows;
-    });
-    connection.end();
-    return queriedRows;
-  }
-
   render() {
     return this.loginForm();
   }
@@ -48,13 +25,42 @@ class Login extends Component {
     return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    let rows = this.sqlQuery(`SELECT * FROM test WHERE username='${this.state.password}' && password='${this.state.username}';`);
-    console.log(rows);
+    let rows = await fetch(`./authenticate/${this.state.username}/${this.state.password}`, {headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }});
+    let myJSON = await rows.json();
+    if (myJSON == null) {
+      alert('Wrong Username or Password!');
+    }
+    else {
+      this.props.setUser(myJSON.username);
+      this.props.userHasAuthenticated(true);
+    }
+  }
+
+  logout = (event) => {
+    event.preventDefault();
+    this.props.setUser("");
+    this.props.userHasAuthenticated(false);
   }
 
   loginForm() {
+    if (this.props.isAuthenticated) {
+      return(
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={this.paper} >
+            <p>{`You are currently logged in as: ${this.props.user}`}</p>
+            <Button fullWidth variant="contained" color="primary" className={this.submit} onClick={this.logout}>
+              Log Out
+            </Button>
+          </div>
+        </Container>
+      )
+    }
     return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
