@@ -14,7 +14,7 @@ import NavBar from "./navbar";
 function Homepage() {
   return (
   <div>
-  <Layout/>
+    <Layout/>
   </div>
   );
  }
