@@ -24,7 +24,9 @@ connection.connect(function(err) {
   if (err) {
     console.log(err);
   } 
-  console.log('Connected!');
+  else {
+    console.log('Connected!');
+  }
 });
 
 app.get(`${dirname}/authenticate/:user/:pass`, async function(req,res){
