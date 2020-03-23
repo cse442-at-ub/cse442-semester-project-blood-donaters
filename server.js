@@ -2,16 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
+var cors = require('cors');
 let mysql = require("mysql");
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, "build")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 let dirname = __dirname;
-console.log(dirname);
 if (dirname.includes("C:\\")) {
   dirname = "";
-  console.log(dirname);
 }
 
 let connection = mysql.createConnection({
@@ -27,6 +27,35 @@ connection.connect(function(err) {
     console.log("Connected!");
   }
 });
+
+app.post("/CSE442-542/2020-spring/cse-442m/register", function(req,res){
+var today = new Date();
+  var users={
+    "firstname":req.body.firstName,
+    "lastname":req.body.lastName,
+    "email":req.body.email,
+    "passwords":req.body.password,
+    "bloodgroup": req.body.bloodGroup,
+    "medicalhistory": req.body.medicalHistory,
+    "reg_date":today,
+   
+  }
+  
+  connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
+  if (error) {
+    console.log("error ocurred",error);
+    res.send({
+      "code":400,
+      "failed":"error ocurred"
+    })
+  }else{
+    console.log('The user is: ', results);
+    res.send("You have successfully registered!!!");
+  }
+  });
+
+});
+  
 
 app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
   console.log(path.join(dirname, "test/testing"));
