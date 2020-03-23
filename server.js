@@ -35,14 +35,14 @@ app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
   if (username == null || password == null) {
     res.statusCode(401);
   } else {
-    let query = `SELECT * FROM test WHERE username='${username}' && password='${password}';`;
+    let query = `SELECT * FROM users WHERE email='${username}' && passwords='${password}';`;
     let queriedRow;
     await connection.query(query, function(err, rows, fields) {
       if (err) throw err;
 
       queriedRow =
         rows.length === 1
-          ? { username: rows[0].username, password: rows[0].password }
+          ? { username: rows[0].email, password: rows[0].passwords }
           : null;
       res.json(queriedRow);
     });
