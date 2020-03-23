@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import axios from 'axios';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles(theme => ({
@@ -35,8 +36,52 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
-const classes = useStyles();
+
+ class SignUp extends Component{
+ constructor(props) {
+    super(props);
+    this.state = {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password:"",
+      blood_type:"",
+      medical_history:""
+    };
+  }
+  render() {
+    return this.Sign_Up();
+  }
+
+/*onSubmit(){
+        
+        
+        const newUser = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email,
+            password: this.state.password,
+            blood_type: this.state.blood_type,
+            medical_history: this.state.medical_history,
+        };
+
+        axios.post('http://localhost:3000/CSE442-542/2020-spring/cse-442m/sign-up', newUser)
+            .then(res => console.log(res.data));
+
+        this.setState({
+           first_name: "",
+           last_name: "",
+           email: "",
+           password:"",
+           blood_type:"",
+           medical_history:""
+        })
+    }
+*/
+
+Sign_Up() {
+
+const { classes } = this.props;
 return (
 <Container component="main" maxWidth="xs">
     <CssBaseline />
@@ -47,7 +92,7 @@ return (
         <Typography component="h1" variant="h5"> 
             Sign up
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form}  method="POST" action="http://localhost:5000/CSE442-542/2020-spring/cse-442m/register">
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -107,9 +152,9 @@ return (
                     variant="outlined"
                     required
                     fullWidth
-                    id="bloodtype"
+                    id="bloodGroup"
                     label="Blood Type"
-                    name="blood"
+                    name="bloodGroup"
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -117,9 +162,9 @@ return (
                     variant="outlined"
                     required
                     fullWidth
-                    id="history"
+                    id="medicalHistory"
                     label="Medical History"
-                    name="history"
+                    name="medicalHistory"
                     />
                 </Grid>
             </Grid>
@@ -133,6 +178,7 @@ return (
             >
             Sign Up
             </Button>
+            
             <Grid container justify="flex-end">
             <Grid item>
                 <Link href="/login" variant="body2">
@@ -145,3 +191,5 @@ return (
 </Container>
 );
 }
+}
+export default withStyles(useStyles)(SignUp)

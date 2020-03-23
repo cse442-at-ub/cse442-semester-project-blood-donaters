@@ -2,38 +2,40 @@ var mysql = require('mysql');
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-
+var cors = require('cors');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
+app.use(cors());
 var mysql      = require('mysql');
-var connection = mysql.createConnection({
-      host:'tethys',
-      user: 'ptmorask',
-      password: '50237054',
-      database: 'cse442_542_2020_spring_teamm_db'
+let connection = mysql.createConnection({
+  host:'tethys.cse.buffalo.edu',
+  user: 'rahman46',
+  password: '50294827',
+  database: 'cse442_542_2020_spring_teamm_db'
 });
-connection.connect(function(err){
-if(!err) {
-    console.log("Database is connected");
-} else {
-    console.log("Error connecting database");
-}
+connection.connect(function(err) {
+  if (err) {
+    console.log(err);
+  } 
+  console.log('Connected!');
 });
 
-app.get("/", function(req,res){
+app.post("/CSE442-542/2020-spring/cse-442m/register", function(req,res){
+  console.log("hello");
 
-  res.send("user account has been added");
+  
 var today = new Date();
   var users={
-    "first_name":req.body.first_name,
-    "last_name":req.body.last_name,
+    "firstname":req.body.firstName,
+    "lastname":req.body.lastName,
     "email":req.body.email,
-    "password":req.body.password,
-    "created":today,
-    "modified":today
+    "passwords":req.body.password,
+    "bloodgroup": req.body.bloodGroup,
+    "medicalhistory": req.body.medicalHistory,
+    "reg_date":today,
+   
   }
   
   connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
@@ -44,11 +46,8 @@ var today = new Date();
       "failed":"error ocurred"
     })
   }else{
-    console.log('The solution is: ', results);
-    res.send({
-      "code":200,
-      "success":"user registered sucessfully"
-        });
+    console.log('The user is: ', results);
+    res.send("You have successfully registered!!!");
   }
   });
 
