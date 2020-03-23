@@ -1,31 +1,34 @@
-var mysql = require('mysql');
-var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
+const app = express();
 var cors = require('cors');
-var app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+let mysql = require("mysql");
 
 app.use(cors());
-var mysql      = require('mysql');
+app.use(express.static(path.join(__dirname, "build")));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+let dirname = __dirname;
+if (dirname.includes("C:\\")) {
+  dirname = "";
+}
+
 let connection = mysql.createConnection({
-  host:'tethys.cse.buffalo.edu',
-  user: 'rahman46',
-  password: '50294827',
-  database: 'cse442_542_2020_spring_teamm_db'
+  host: "tethys.cse.buffalo.edu",
+  user: "ethanarm",
+  password: "37694242",
+  database: "cse442_542_2020_spring_teamm_db"
 });
 connection.connect(function(err) {
   if (err) {
     console.log(err);
-  } 
-  console.log('Connected!');
+  } else {
+    console.log("Connected!");
+  }
 });
 
 app.post("/CSE442-542/2020-spring/cse-442m/register", function(req,res){
-  console.log("hello");
-
-  
 var today = new Date();
   var users={
     "firstname":req.body.firstName,
@@ -52,8 +55,44 @@ var today = new Date();
   });
 
 });
+  
 
-app.listen(5000, function() {
-    console.log("Server is running on Port: " + 5000);
+app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
+  console.log(path.join(dirname, "test/testing"));
+  let username = req.params.user;
+  let password = req.params.pass;
+  if (username == null || password == null) {
+    res.statusCode(401);
+  } else {
+    let query = `SELECT * FROM users WHERE email='${username}' && passwords='${password}';`;
+    let queriedRow;
+    await connection.query(query, function(err, rows, fields) {
+      if (err) throw err;
+
+      queriedRow =
+        rows.length === 1
+          ? { username: rows[0].email, password: rows[0].passwords }
+          : null;
+      res.json(queriedRow);
+    });
+  }
 });
 
+//get full database list
+
+app.get(`${dirname}/listdata`, async function(req, res) {
+  let query = `SELECT * FROM donor_list_test;`;
+  let queriedRows;
+  await connection.query(query, function(err, rows, fields) {
+    if (err) throw err;
+
+    queriedRows = rows;
+    res.json(queriedRows);
+  });
+});
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.listen(process.env.PORT || 3000);
