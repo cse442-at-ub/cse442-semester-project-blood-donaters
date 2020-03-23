@@ -50,19 +50,17 @@ app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
 });
 
 //get full database list
-/*
-app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res){
-  console.log(path.join(dirname, "test/testing"));
-  let query = `SELECT * FROM donor_list_test;`
-  let queriedRows;
-  await connection.query(query, function(err, rows, fields){
-      if(err) throw err;
 
-      queriedRows = rows;
-      res.json(queriedRows);
+app.get(`${dirname}/listdata`, async function(req, res) {
+  let query = `SELECT * FROM donor_list_test;`;
+  let queriedRows;
+  await connection.query(query, function(err, rows, fields) {
+    if (err) throw err;
+
+    queriedRows = rows;
+    res.json(queriedRows);
   });
 });
-*/
 
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
