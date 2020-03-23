@@ -30,6 +30,21 @@ function createData(firstName, lastName, bloodGroup, location, cellphone) {
   return { firstName, lastName, bloodGroup, location, cellphone };
 }
 
+let newrows = await fetch(`./listdata`, {
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json"
+  }
+});
+
+let db_rows;
+
+let myJSON = await newrows.json();
+if (myJSON == null) {
+  alert("Error reading database!");
+} else db_rows = myJSON;
+console.log(db_rows);
+
 const rows = [
   createData(
     "Abdur",
