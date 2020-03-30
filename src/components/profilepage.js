@@ -39,7 +39,14 @@ const myStyles = makeStyles(theme => ({
 
 export default function profilepage() {
 const styles = myStyles();
+
+// Variables pulled from dataabse to fill up user information.
+let blood = "O Positive";
+var weight = '180';
+var height = '71';
+
 return (
+    
     <Typography>
     <Container className={styles.container}>
         <Card className={styles.card}>
@@ -50,9 +57,9 @@ return (
              </Button>
         </Card>
         <Grid className={styles.grid}>
-            <Paper className={styles.paper}>BloodType: O Positive</Paper>
-            <Paper className={styles.paper}>Weight: 180 Pounds</Paper>
-            <Paper className={styles.paper}>Height: 6'0"</Paper>
+            <Paper className={styles.paper}>BloodType: {blood} </Paper>
+            <Paper className={styles.paper}>Weight: {weight} Pounds</Paper>
+            <Paper className={styles.paper}>Height: {height} inches</Paper>
         </Grid>
     </Container>
     </Typography>
