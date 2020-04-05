@@ -23,7 +23,6 @@ class DonorList extends Component {
         },
       ],
     };
-    this.handleUpdate();
   }
   handleUpdate = async (event) => {
     event.preventDefault();

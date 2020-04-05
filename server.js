@@ -51,7 +51,6 @@ app.get(`/authenticate/:user/:pass`, async function (req, res) {
 app.get(`/listdata`, async function (req, res) {
   let query = `SELECT * FROM donor_list_test;`;
   let queriedRows;
-  console.log("requested list data");
   await connection.query(query, function (err, rows, fields) {
     queriedRows = rows;
     res.json(queriedRows);
