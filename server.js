@@ -29,7 +29,6 @@ connection.connect(function (err) {
 });
 
 app.get(`/authenticate/:user/:pass`, async function (req, res) {
-  console.log("app.get function called");
   let username = req.params.user;
   let password = req.params.pass;
   if (username == null || password == null) {
@@ -55,7 +54,6 @@ app.get(`/listdata`, async function (req, res) {
   console.log("requested list data");
   await connection.query(query, function (err, rows, fields) {
     queriedRows = rows;
-    console.log(queriedRows);
     res.json(queriedRows);
   });
 });

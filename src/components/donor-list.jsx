@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 class DonorList extends Component {
   constructor(props) {
@@ -14,19 +15,38 @@ class DonorList extends Component {
     this.state = {
       rows: [
         {
-          firstName: "temp",
-          lastName: "templast",
-          bloodGroup: "C-",
-          location: "West Mexico",
-          cellphone: "123456789",
+          FIRSTNAME: "temp",
+          LASTNAME: "templast",
+          BLOODTYPE: "C-",
+          LOCATION: "West Mexico",
+          PHONE: "123456789",
         },
       ],
     };
+    this.handleUpdate();
   }
+  handleUpdate = async (event) => {
+    event.preventDefault();
+    let rowsdb = await fetch(`/listdata`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    let myJSON = await rowsdb.json();
+    if (myJSON == null) {
+      alert("Fetching data failed");
+    } else {
+      this.setState({ rows: myJSON });
+    }
+  };
   render() {
     return (
       <div>
         <h1 color="blue">Blood Donors List </h1>
+        <Button onClick={this.handleUpdate} variant="contained" color="primary">
+          Refresh
+        </Button>
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
             <TableHead>
@@ -42,12 +62,12 @@ class DonorList extends Component {
               {this.state.rows.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row">
-                    {row.firstName}
+                    {row.FIRSTNAME}
                   </TableCell>
-                  <TableCell align="right">{row.lastName}</TableCell>
-                  <TableCell align="right">{row.bloodGroup}</TableCell>
-                  <TableCell align="right">{row.location}</TableCell>
-                  <TableCell align="right">{row.cellphone}</TableCell>
+                  <TableCell align="right">{row.LASTNAME}</TableCell>
+                  <TableCell align="right">{row.BLOODTYPE}</TableCell>
+                  <TableCell align="right">{row.LOCATION}</TableCell>
+                  <TableCell align="right">{row.PHONE}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
