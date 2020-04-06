@@ -24,7 +24,7 @@ connection.connect(function(err) {
   if (err) {
     console.log(err);
   } else {
-    console.log("Connected!");
+    console.log("Connected!!");
   }
 });
 
@@ -55,6 +55,8 @@ var today = new Date();
   });
 
 });
+
+    
   
 
 app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
@@ -78,6 +80,7 @@ app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
   }
 });
 
+
 //get full database list
 
 app.get(`${dirname}/listdata`, async function(req, res) {
@@ -94,5 +97,24 @@ app.get(`${dirname}/listdata`, async function(req, res) {
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+
+
+//Getting information for the user profile
+app.get('./user-profile', function(req, res) {
+  let usrnm = "seniorbleh";
+  let query = `SELECT * FROM user_profile WHERE username='seniorbleh';`;
+
+  connection.query(query, function(err, results, fields) {
+    if (err) throw err;
+    console.log("Working");
+
+    res.json(results)
+  });
+});
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 
 app.listen(process.env.PORT || 3000);
