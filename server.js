@@ -18,9 +18,9 @@ let connection = mysql.createConnection({
   host: "tethys.cse.buffalo.edu",
   user: "ethanarm",
   password: "37694242",
-  database: "cse442_542_2020_spring_teamm_db"
+  database: "cse442_542_2020_spring_teamm_db",
 });
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     console.log(err);
   } else {
@@ -38,9 +38,9 @@ var today = new Date();
     "bloodgroup": req.body.bloodGroup,
     "medicalhistory": req.body.medicalHistory,
     "reg_date":today,
-   
+
   }
-  
+
   connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
   if (error) {
     console.log("error ocurred",error);
@@ -55,23 +55,21 @@ var today = new Date();
   });
 
 });
-  
 
-app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
-  console.log(path.join(dirname, "test/testing"));
+
+
+app.get(`/authenticate/:user/:pass`, async function (req, res) {
   let username = req.params.user;
   let password = req.params.pass;
   if (username == null || password == null) {
     res.statusCode(401);
   } else {
-    let query = `SELECT * FROM users WHERE email='${username}' && passwords='${password}';`;
+    let query = `SELECT * FROM test WHERE username='${username}' && password='${password}';`;
     let queriedRow;
-    await connection.query(query, function(err, rows, fields) {
-      if (err) throw err;
-
+    await connection.query(query, function (err, rows, fields) {
       queriedRow =
         rows.length === 1
-          ? { username: rows[0].email, password: rows[0].passwords }
+          ? { username: rows[0].username, password: rows[0].password }
           : null;
       res.json(queriedRow);
     });
@@ -80,18 +78,16 @@ app.get(`${dirname}/authenticate/:user/:pass`, async function(req, res) {
 
 //get full database list
 
-app.get(`${dirname}/listdata`, async function(req, res) {
+app.get(`/listdata`, async function (req, res) {
   let query = `SELECT * FROM donor_list_test;`;
   let queriedRows;
-  await connection.query(query, function(err, rows, fields) {
-    if (err) throw err;
-
+  await connection.query(query, function (err, rows, fields) {
     queriedRows = rows;
     res.json(queriedRows);
   });
 });
 
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 

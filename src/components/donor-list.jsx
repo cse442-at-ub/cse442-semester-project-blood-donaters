@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,124 +7,71 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-
-
+import Button from "@material-ui/core/Button";
+import MaterialTable from 'material-table';
 class DonorList extends Component {
-    state = { 
-        rows = [
-            createData(
-              "Abdur",
-              "Rahman",
-              "O Positive",
-              "Buffalo, New York",
-              "+123456789"
-            ),
-            createData(
-              "Steven",
-              "Smith",
-              "B Negative",
-              "Brooklyn, New York",
-              "+123456789"
-            ),
-            createData(
-              "Michael",
-              "Clarke",
-              "B Positive",
-              "Rochester, New York",
-              "+123456789"
-            ),
-            createData(
-              "Adam",
-              "Gilchrist",
-              "O Negative",
-              "Queens, New York",
-              "+123456789"
-            ),
-            createData(
-              "Matthew",
-              "Hayden",
-              "AB Positve",
-              "Manhattan, New York",
-              "+123456789"
-            ),
-            createData("Stuart", "Broad", "AB Negative", "Bronx, New York", "+123456789"),
-            createData(
-              "Shaun",
-              "Tait",
-              "B Negative",
-              "Long Island, New York",
-              "+123456789"
-            ),
-            createData(
-              "Morne",
-              "Morkel",
-              "B Negative",
-              "Binghamton, New York",
-              "+123456789"
-            )
-          ]
-     }
-    render() { 
-        return ( 
-            <div>
-      <h1 color="blue">Blood Donors List </h1>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>First Name</StyledTableCell>
-              <StyledTableCell align="right">Last Name</StyledTableCell>
-              <StyledTableCell align="right">Blood Group</StyledTableCell>
-              <StyledTableCell align="right">Location</StyledTableCell>
-              <StyledTableCell align="right">Cell Phone No.</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {state.rows.map(row => (
-              <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.firstName}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.lastName}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.bloodGroup}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.location}</StyledTableCell>
-                <StyledTableCell align="right">{row.cellphone}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
-         );
-    }
-    createData(firstName, lastName, bloodGroup, location, cellphone) {
-        return { firstName, lastName, bloodGroup, location, cellphone };
-    }
-    StyledTableCell = withStyles(theme => ({
-        head: {
-          backgroundColor: theme.palette.secondary.main,
-          color: theme.palette.common.white
+  constructor(props) {
+    super(props);
+    this.state = {
+      rows: [
+        {
+          FIRSTNAME: "temp",
+          LASTNAME: "templast",
+          BLOODTYPE: "C-",
+          LOCATION: "West Mexico",
+          PHONE: "123456789",
         },
-        body: {
-          fontSize: 14
+      ],
+    };
+  }
+  handleUpdate = async (event) => {
+    event.preventDefault();
+    let rowsdb = await fetch(`/listdata`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    let myJSON = await rowsdb.json();
+    if (myJSON == null) {
+      alert("Fetching data failed");
+    } else {
+      this.setState({ rows: myJSON });
+    }
+  };
+  render() {
+    return (
+      <div>
+       <MaterialTable
+        title="Blood Donor List"
+        columns={[
+          { title: 'First Name',field: 'FIRSTNAME'}, 
+          { title: 'Last Name', field: 'LASTNAME' },
+          { title: 'Blood Type', field: 'BLOODTYPE' },
+          { title: 'Location', field: 'LOCATION' },
+          { title: 'Cell Phone No.', field: 'PHONE', type: 'numeric'},
+        ]}
+        data={query =>
+          new Promise((resolve, reject) => {
+            let url = '/listdata';
+            fetch(url)
+              .then(response => response.json())
+              .then(result => {
+                resolve({
+                  data: result,
+                  page: result.page - 1,
+                  totalCount: result.total
+                })
+              })
+          })
         }
-      }))(TableCell);
-
-      StyledTableRow = withStyles(theme => ({
-        root: {
-          "&:nth-of-type(odd)": {
-            backgroundColor: theme.palette.background.default
-          }
-        }
-      }))(TableRow);
-
-      useStyles = makeStyles({
-        table: {
-          minWidth: 700
-        }
-      });
+        options={{
+          filtering: true
+        }}
+      />
+     </div>
+       
+    );
+  }
 }
- 
 export default DonorList;
