@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./navbar.css";
 import Avatar from "@material-ui/core/Avatar";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 //Stateless Functional Component
 class NavBar extends Component {
-
   render() {
     if (this.props.isAuthenticated) {
       return this.loggedInNavBar();
@@ -16,10 +15,10 @@ class NavBar extends Component {
   }
 
   logout = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     this.props.setUser("");
     this.props.userHasAuthenticated(false);
-  }
+  };
 
   loggedInNavBar() {
     return (
@@ -32,18 +31,26 @@ class NavBar extends Component {
               </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signup">Sign Up</Link>
+              <Link className="nav-link" to="/signup">
+                Sign Up
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/donors-list">Donor's List</Link>
+              <Link className="nav-link" to="/donors-list">
+                Donor's List
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/profile">Profile</Link>
+              <Link className="nav-link" to="/profile">
+                Profile
+              </Link>
             </li>
             <li className="nav-item">
-            <li className="nav-item">
-              <Link className="nav-link" href="#" onClick={this.logout}>Log Out</Link>
-          </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="./" onClick={this.logout}>
+                  Log Out
+                </Link>
+              </li>
             </li>
           </ul>
           <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
@@ -72,19 +79,17 @@ class NavBar extends Component {
               </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signup">Sign Up</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/donors-list">Donor's List</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/profile">Profile</Link>
+              <Link className="nav-link" to="/signup">
+                Sign Up
+              </Link>
             </li>
           </ul>
           <ul className="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
-          <li className="nav-item">
-              <Link className="nav-link" to="/login">Login</Link>
-          </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
