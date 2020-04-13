@@ -49,7 +49,7 @@ class DonorList extends Component {
           { title: 'Last Name', field: 'LASTNAME' },
           { title: 'Blood Type', field: 'BLOODTYPE' },
           { title: 'Location', field: 'LOCATION' },
-          { title: 'Cell Phone No.', field: 'PHONE', type: 'numeric'},
+          { title: 'Cell Phone No.', field: 'PHONE'},
         ]}
         data={query =>
           new Promise((resolve, reject) => {
@@ -58,15 +58,18 @@ class DonorList extends Component {
               .then(response => response.json())
               .then(result => {
                 resolve({
-                  data: result,
-                  page: result.page - 1,
-                  totalCount: result.total
+                  data: result.filter(user => user.FIRSTNAME.includes(query.search)
+                        || user.LASTNAME.includes(query.search)
+                        || user.BLOODTYPE.includes(query.search)
+                        || user.LOCATION.includes(query.search)
+                        || user.PHONE.includes(query.search))
+                  
                 })
               })
           })
         }
         options={{
-          filtering: true
+          search: true
         }}
       />
      </div>
