@@ -4,6 +4,7 @@ const path = require("path");
 const app = express();
 var cors = require('cors');
 let mysql = require("mysql");
+const cryptoJS = require("crypto-js");
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "build")));
@@ -31,14 +32,13 @@ connection.connect(function (err) {
 app.post("/CSE442-542/2020-spring/cse-442m/register", function(req,res){
 var today = new Date();
   var users={
-    "firstname":req.body.firstName,
-    "lastname":req.body.lastName,
+    "firstname":cryptoJS.AES.encrypt(req.body.firstName, "Blood Donaters").toString(),
+    "lastname":cryptoJS.AES.encrypt(req.body.lastName, "Blood Donaters").toString(),
     "email":req.body.email,
-    "passwords":req.body.password,
-    "bloodgroup": req.body.bloodGroup,
-    "medicalhistory": req.body.medicalHistory,
+    "passwords":cryptoJS.SHA256(req.body.password).toString(),
+    "bloodgroup": cryptoJS.AES.encrypt(req.body.bloodGroup, "Blood Donaters").toString(),
+    "medicalhistory": cryptoJS.AES.encrypt(req.body.medicalHistory, "Blood Donaters").toString(),
     "reg_date":today,
-
   }
 
   connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
@@ -48,9 +48,6 @@ var today = new Date();
       "code":400,
       "failed":"error ocurred"
     })
-  }else{
-    console.log('The user is: ', results);
-    res.send("You have successfully registered!!!");
   }
   });
 
@@ -58,20 +55,23 @@ var today = new Date();
 
 
 
-app.get(`/authenticate/:user/:pass`, async function (req, res) {
-  let username = req.params.user;
-  let password = req.params.pass;
-  if (username == null || password == null) {
+app.get(`/authenticate/:email/:pass`, async function (req, res) {
+  let email = req.params.email;
+  let password = cryptoJS.SHA256(req.params.pass).toString();
+  if (email == null || password == null) {
     res.statusCode(401);
   } else {
-    let query = `SELECT * FROM test WHERE username='${username}' && password='${password}';`;
-    let queriedRow;
+    let query = `SELECT * FROM users WHERE email='${email}' && passwords='${password}';`;
     await connection.query(query, function (err, rows, fields) {
-      queriedRow =
-        rows.length === 1
-          ? { username: rows[0].username, password: rows[0].password }
-          : null;
-      res.json(queriedRow);
+      console.log(rows);
+      if (rows.length === 1) {
+        let bytes = cryptoJS.AES.decrypt(rows[0].firstname, "Blood Donaters")
+        let firstname = bytes.toString(cryptoJS.enc.Utf8);
+        res.json({firstname});
+      }
+      else {
+        res.send({firstname:null});
+      }
     });
   }
 });
