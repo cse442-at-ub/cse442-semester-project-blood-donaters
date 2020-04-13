@@ -1,4 +1,4 @@
-import React, {useState}  from 'react';
+import React, {useState, useEffect}  from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
@@ -8,8 +8,6 @@ import Paper from "@material-ui/core/Paper";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-
-var mysql = require('mysql');
 
 var myStyles = makeStyles(theme => ({
     card: {
@@ -43,24 +41,57 @@ var myStyles = makeStyles(theme => ({
 }));
 
 
-export default function Profilepage() {
+
+export default function Profilepage(props) {
 const styles = myStyles();
 
-
-//Database connection stuff
-
-
 // Variables to fill up user information.
-const [blood, setBlood] = useState('O Positive');
-const [weight, setWeight] = useState('210');
-const [height, setHeight] = useState('71');
+const [blood, setBlood] = useState('B-');
+const [weight, setWeight] = useState('190');
+const [height, setHeight] = useState('70');
+
+const [error, setError] = useState(null);
+const [isLoaded, setIsLoaded] = useState(false);
+const [items, setItems] = useState([]);
+
+// Note: the empty deps array [] means
+// this useEffect will run once
+// similar to componentDidMount()
+useEffect(() => {
+  fetch("./profile-api")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        setIsLoaded(true);
+        setItems(result.items);
+      },
+
+      (error) => {
+        setIsLoaded(true);
+        setError(error);
+      }
+    )
+}, [])
+
+
+function submitOnclick(){
+    setBlood(document.getElementById('standard-blood').value);
+    document.getElementById('standard-blood').value = "";
+    setWeight(document.getElementById('standard-weight').value);
+    document.getElementById('standard-weight').value = "";
+    setHeight(document.getElementById('standard-height').value);
+    document.getElementById('standard-height').value = "";
+}
+
+
+
 return (
     
     <Typography>
     <Container className={styles.container}>
         <Card className={styles.card}>
             <img alt='No Image Available.' src={require("../assets/dracula.jpg")} />
-            <Typography variant="h4">Count Dracula</Typography>
+            <Typography variant="h4">admin</Typography>
             <Button variant="contained" >
                 Edit Info
              </Button>
@@ -69,7 +100,7 @@ return (
             <Paper className={styles.paper}>BloodType: {blood} <TextField className={styles.text} id="standard-blood" label="New Blood Type"/></Paper>
             <Paper className={styles.paper}>Weight: {weight} Pounds<TextField className={styles.text} id="standard-weight" label="New Weight"/></Paper>
             <Paper className={styles.paper}>Height: {height} inches<TextField className={styles.text} id="standard-height" label="New Height"/></Paper>
-            <Button className={styles.text} variant="contained" onClick={() =>{this.setBlood(document.getElementById("standard-blood").value);}}>Submit Changes</Button>
+            <Button className={styles.text} variant="contained" onClick={submitOnclick}>Submit Changes</Button>
         </Grid>
 
     </Container>

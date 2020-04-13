@@ -94,6 +94,18 @@ app.get(`${dirname}/listdata`, async function(req, res) {
   });
 });
 
+app.get(`/profile-api`, async function(req, res) {
+  let query = `SELECT * FROM user_profile WHERE username = "admin";`;
+  let queriedRows;
+  await connection.query(query, function(err, rows, fields) {
+    if (err) throw err;
+
+    queriedRows = rows;
+    res.json(queriedRows);
+  });
+});
+
+
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
