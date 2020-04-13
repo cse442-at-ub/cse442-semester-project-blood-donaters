@@ -92,7 +92,7 @@ return (
         <Typography component="h1" variant="h5"> 
             Sign up
         </Typography>
-        <form className={classes.form}  method="POST" action="http://localhost:5000/CSE442-542/2020-spring/cse-442m/register">
+        <form className={classes.form}  method="POST" action="/CSE442-542/2020-spring/cse-442m/register">
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField

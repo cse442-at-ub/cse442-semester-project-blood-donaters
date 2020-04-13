@@ -12,7 +12,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -22,7 +22,7 @@ class Login extends Component {
   }
 
   validateForm = () => {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.email.length > 0 && this.state.password.length > 0;
   };
 
   handleSubmit = async (event) => {
@@ -31,8 +31,8 @@ class Login extends Component {
       this.props.setUser("admin");
       this.props.userHasAuthenticated(true);
     } else {
-      let rows = await fetch(
-        `/authenticate/${this.state.username}/${this.state.password}`,
+      let response = await fetch(
+        `/authenticate/${this.state.email}/${this.state.password}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,11 +40,13 @@ class Login extends Component {
           },
         }
       );
-      let myJSON = await rows.json();
-      if (myJSON == null) {
+      let myJSON = await response.json();
+      let firstname = myJSON.firstname;
+      console.log(firstname);
+      if (firstname == null) {
         alert("Wrong Username or Password!");
       } else {
-        this.props.setUser(myJSON.username);
+        this.props.setUser(firstname);
         this.props.userHasAuthenticated(true);
         console.log("Authenticated");
       }
@@ -92,7 +94,7 @@ class Login extends Component {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(e) => this.setState({ username: e.target.value })}
+              onChange={(e) => this.setState({ email: e.target.value })}
             />
             <TextField
               variant="outlined"
