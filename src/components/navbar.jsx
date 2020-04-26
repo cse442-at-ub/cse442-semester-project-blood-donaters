@@ -31,11 +31,6 @@ class NavBar extends Component {
               </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signup">
-                Sign Up
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/donors-list">
                 Donor's List
               </Link>
