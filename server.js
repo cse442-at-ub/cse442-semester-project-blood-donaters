@@ -29,7 +29,7 @@ connection.connect(function (err) {
   }
 });
 
-app.post("/CSE442-542/2020-spring/cse-442m/register", function(req,res){
+app.post("/CSE442-542/2020-spring/cse-442m/register", async function(req,res){
 var today = new Date();
   var users={
     "firstname":cryptoJS.AES.encrypt(req.body.firstName, "Blood Donaters").toString(),
@@ -41,15 +41,27 @@ var today = new Date();
     "reg_date":today,
   }
 
-  connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
-  if (error) {
-    console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
-    })
-  }
+  let query = `SELECT * FROM users WHERE email='${users.email}';`;
+  await connection.query(query, function (err, rows, fields) {
+    if (rows.length > 0) {
+      res.status(401).send("That email is already registered!");
+      return;
+    }
+    else {
+      connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
+        if (error) {
+          console.log("error ocurred",error);
+          res.status(400).send("Error registering to the database.");
+          return;
+        }
+        else {
+          res.redirect("/login");
+        }
+        });
+    }
   });
+
+  
 
 });
 
