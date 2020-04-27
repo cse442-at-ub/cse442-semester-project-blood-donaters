@@ -5,6 +5,7 @@ import DonorList from "./donor-list.jsx";
 import HomePage from "./homepage";
 import SignUp from "./formpage";
 import ProfilePage from "./profilepage";
+import About_Page from "./about_page";
 import { Switch, Route } from "react-router-dom";
 
 export default function Routes({ appProps }) {
@@ -28,6 +29,12 @@ export default function Routes({ appProps }) {
         path="/profile"
         exact
         component={ProfilePage}
+        appProps={appProps}
+      />
+      <AppliedRoute
+        path="/about-page"
+        exact
+        component={About_Page}
         appProps={appProps}
       />
       <Route component={HomePage} />
