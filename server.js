@@ -75,7 +75,6 @@ app.get(`/authenticate/:email/:pass`, async function (req, res) {
   } else {
     let query = `SELECT * FROM users WHERE email='${email}' && passwords='${password}';`;
     await connection.query(query, function (err, rows, fields) {
-      console.log(rows);
       if (rows.length === 1) {
         let bytes = cryptoJS.AES.decrypt(rows[0].firstname, "Blood Donaters")
         let firstname = bytes.toString(cryptoJS.enc.Utf8);

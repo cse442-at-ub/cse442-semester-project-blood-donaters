@@ -7,6 +7,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +30,7 @@ class Login extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    if (this.state.username == "admin" && this.state.password == "admin") {
+    if (this.state.username === "admin" && this.state.password === "admin") {
       this.props.setUser("admin");
       this.props.userHasAuthenticated(true);
     } else {
@@ -82,7 +85,18 @@ class Login extends Component {
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={this.paper}>
+        <div style={{
+          marginTop: "20px",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
+          <Avatar>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log In
+          </Typography>
           <form className={this.form} onSubmit={this.handleSubmit} noValidate>
             <TextField
               variant="outlined"

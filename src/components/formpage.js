@@ -81,13 +81,19 @@ const { classes } = this.props;
 return (
 <Container component="main" maxWidth="xs">
     <CssBaseline />
-    <div className={classes.paper}>
+    <div style={{
+        marginTop: "20px",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    }}>
         <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5"> 
             Sign up
         </Typography>
+        <br/>
         <form className={classes.form}  method="POST" action="/CSE442-542/2020-spring/cse-442m/register">
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -164,6 +170,7 @@ return (
                     />
                 </Grid>
             </Grid>
+            <br/>
             <Button
             type="submit"
             fullWidth
