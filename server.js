@@ -38,6 +38,8 @@ var today = new Date();
     "passwords":cryptoJS.SHA256(req.body.password).toString(),
     "bloodgroup": cryptoJS.AES.encrypt(req.body.bloodGroup, "Blood Donaters").toString(),
     "medicalhistory": cryptoJS.AES.encrypt(req.body.medicalHistory, "Blood Donaters").toString(),
+    "location": cryptoJS.AES.encrypt(req.body.location, "Blood Donaters").toString(),
+    "phonenumber": cryptoJS.AES.encrypt(req.body.phoneNumber, "Blood Donaters").toString(),
     "reg_date":today,
   }
 
@@ -90,11 +92,23 @@ app.get(`/authenticate/:email/:pass`, async function (req, res) {
 //get full database list
 
 app.get(`/listdata`, async function (req, res) {
-  let query = `SELECT * FROM donor_list_test;`;
-  let queriedRows;
+  let query = `SELECT * FROM users;`;
   await connection.query(query, function (err, rows, fields) {
-    queriedRows = rows;
-    res.json(queriedRows);
+    let unencryptedData = [];
+    for (let row of rows) {
+      let firstNameBytes = cryptoJS.AES.decrypt(row.firstname, "Blood Donaters")
+      let lastNameBytes = cryptoJS.AES.decrypt(row.lastname, "Blood Donaters")
+      let bloodTypeBytes = cryptoJS.AES.decrypt(row.bloodgroup, "Blood Donaters")
+      let locationBytes = cryptoJS.AES.decrypt(row.location, "Blood Donaters")
+      let phoneNumberBytes = cryptoJS.AES.decrypt(row.phonenumber, "Blood Donaters")
+      let FIRSTNAME = firstNameBytes.toString(cryptoJS.enc.Utf8);
+      let LASTNAME = lastNameBytes.toString(cryptoJS.enc.Utf8);
+      let BLOODTYPE = bloodTypeBytes.toString(cryptoJS.enc.Utf8);
+      let LOCATION = locationBytes.toString(cryptoJS.enc.Utf8);
+      let PHONE = phoneNumberBytes.toString(cryptoJS.enc.Utf8);
+      unencryptedData.push({FIRSTNAME,LASTNAME,BLOODTYPE,LOCATION,PHONE});
+    }
+    res.json(unencryptedData);
   });
 });
 
