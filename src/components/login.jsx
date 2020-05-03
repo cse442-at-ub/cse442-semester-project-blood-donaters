@@ -7,12 +7,15 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -22,17 +25,17 @@ class Login extends Component {
   }
 
   validateForm = () => {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.email.length > 0 && this.state.password.length > 0;
   };
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    if (this.state.username == "admin" && this.state.password == "admin") {
+    if (this.state.username === "admin" && this.state.password === "admin") {
       this.props.setUser("admin");
       this.props.userHasAuthenticated(true);
     } else {
-      let rows = await fetch(
-        `/authenticate/${this.state.username}/${this.state.password}`,
+      let response = await fetch(
+        `/authenticate/${this.state.email}/${this.state.password}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,11 +43,13 @@ class Login extends Component {
           },
         }
       );
-      let myJSON = await rows.json();
-      if (myJSON == null) {
+      let myJSON = await response.json();
+      let firstname = myJSON.firstname;
+      console.log(firstname);
+      if (firstname == null) {
         alert("Wrong Username or Password!");
       } else {
-        this.props.setUser(myJSON.username);
+        this.props.setUser(firstname);
         this.props.userHasAuthenticated(true);
         console.log("Authenticated");
       }
@@ -80,7 +85,18 @@ class Login extends Component {
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={this.paper}>
+        <div style={{
+          marginTop: "20px",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
+          <Avatar>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log In
+          </Typography>
           <form className={this.form} onSubmit={this.handleSubmit} noValidate>
             <TextField
               variant="outlined"
@@ -92,7 +108,7 @@ class Login extends Component {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(e) => this.setState({ username: e.target.value })}
+              onChange={(e) => this.setState({ email: e.target.value })}
             />
             <TextField
               variant="outlined"
