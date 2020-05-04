@@ -58,11 +58,11 @@ class DonorList extends Component {
               .then(response => response.json())
               .then(result => {
                 resolve({
-                  data: result.filter(user => user.FIRSTNAME.includes(query.search)
-                        || user.LASTNAME.includes(query.search)
-                        || user.BLOODTYPE.includes(query.search)
-                        || user.LOCATION.includes(query.search)
-                        || user.PHONE.includes(query.search))
+                  data: result.filter(user => user.FIRSTNAME.toUpperCase().includes(query.search.toUpperCase())
+                        || user.LASTNAME.toUpperCase().includes(query.search.toUpperCase())
+                        || user.BLOODTYPE.toUpperCase().includes(query.search.toUpperCase())
+                        || user.LOCATION.toUpperCase().includes(query.search.toUpperCase())
+                        || user.PHONE.toUpperCase().includes(query.search.toUpperCase()))
                   
                 })
               })
