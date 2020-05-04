@@ -30,6 +30,11 @@ class NavBar extends Component {
                 Blood Donation App
               </a>
             </li>
+             <li className="nav-item">
+              <Link className="nav-link" to="/about-page">
+                About Us
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/signup">
                 Sign Up

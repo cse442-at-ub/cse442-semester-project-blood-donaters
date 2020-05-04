@@ -12,6 +12,7 @@ import FireplaceIcon from '@material-ui/icons/Fireplace';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { spacing } from '@material-ui/system';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -52,15 +53,79 @@ About_Page() {
 
 const { classes } = this.props;
 return (
-<Container component="main" maxWidth="xs">
+
+<Container component="main" maxWidth="100%">
     <CssBaseline />
     <div className={classes.paper}>
-        <Typography component="h1" variant="h5"> 
+       
+        <Typography component="h1" variant="h3" align ="center" color = "secondary"> 
             About Blood Donation App
         </Typography>
         
-    </div>
-    <div className={classes.root}>{"We are Blood Donaters from New York. Our main goal is to provide the highest quality blood to hospitals and patients primarily in the greater New York metropolitan area"}</div>
+  
+  
+    <Grid item xs={12}>
+     <Typography component="h4" variant="h5"> 
+We are Blood Donaters from New York. Our main goal is to provide the highest quality blood 
+to hospitals and patients primarily in the greater New York metropolitan area. The app 
+is restricted to the authorized users and users with valid credentials can use this app. 
+The blood donors can list their blood group and necessary information after logging in. 
+On the other hand, blood seekers can see the available blood donors list and filter the 
+blood donors list based on their need.
+    </Typography>
+    </Grid>
+
+        <Typography component="h1" variant="h3" align="center" color = "secondary" m={2}> 
+            Frequently Asked Questions
+        </Typography>
+        
+    
+ 
+    <Typography component="h4" variant="h4" m={2}> 
+       Does it cause any problem to my health if I give blood to others?
+     </Typography>
+
+    <Typography component="h6" variant="body1" m={2}> 
+       There is no harm giving blood to others. Rather, you are contributing to save
+       human life.
+     </Typography>
+     <Typography component="h4" variant="h4" m={2}> 
+       Is the medical history information is mandatory?
+     </Typography>
+    <Typography component="h6" variant="body1" m={2}> 
+       Yes, it is really important. Without entering previous medical history, you can not
+       donate blood.
+     </Typography>
+    <Typography component="h4" variant="h4" m={2}> 
+       How often can I give blood?
+     </Typography>
+     <Typography component="h6" variant="body1" m={2}> 
+       Generally, you can give blood every 2 months. 
+     </Typography>
+     <Typography component="h4" variant="h4" m={2}> 
+       Is it safe for me to receive bloods from here?
+     </Typography>
+     <Typography component="h6" variant="body1" m={2}> 
+      Yes, of course. We verify each of donors medical history prior to adding them to 
+       the donors list. We make sure that blood donation is safe both for our blood donors and 
+       blood seekers. 
+     </Typography>
+     <Typography component="h4" variant="h4" m={2}> 
+       Is there any age restrictions to donate blood?
+     </Typography>
+     <Typography component="h6" variant="body1" m={2}> 
+        Yes, You have to be at least 17 years old in order to give blood.
+     </Typography>
+
+
+  
+    
+    
+  
+    
+ 
+   </div>
+
 </Container>
 
 );
